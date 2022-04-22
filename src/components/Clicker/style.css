@@ -1,0 +1,72 @@
+.clicker-game {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+.health-bar {
+  border: 1px solid #e2e2e2;
+  height: 30px;
+  position: relative;
+}
+.health-bar .inner {
+  background: red;
+  width: 100%;
+  height: 100%;
+  transition: all 0.1s ease;
+}
+.health-bar .text {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.monster {
+  cursor: pointer;
+  /* overflow: hidden; */
+  position: relative;
+  outline: none;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
+}
+.monster * {
+  pointer-events: none;
+}
+.monster img {
+  max-width: 100%;
+  transition: all 0.1s ease;
+  transform: none;
+  pointer-events: none;
+}
+.monster.hit img {
+  transform: skewX(-13deg);
+}
+
+.monster .monster-name {
+  position: absolute;
+  left: 50%;
+  bottom: 40px;
+  z-index: 10;
+  font-size: 25px;
+  transform: translateX(-50%);
+  box-shadow: 0 0 10px 0 #464646;
+  background: #ffe6b8;
+  padding: 10px;
+  white-space: nowrap;
+}
+
+.monster .hit {
+  position: absolute;
+  display: none;
+  z-index: 15;
+  color: red;
+  font-size: 20px;
+  pointer-events: none;
+  /* transition: all 0.1s ease; */
+}
+.monster.hit .hit {
+  display: block;
+}
