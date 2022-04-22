@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getRandomInt } from '../../utils/common'
+import { getRandomInt, nFormatter } from '../../utils/common'
 import './style.css'
 import bang from '../../assets/images/bang.png'
 
@@ -28,8 +28,8 @@ export default function Clicker(props) {
       <div className="row">
         <div className="col-12 col-lg-4">
           <div className="d-flex align-items-center justify-content-between">
-            <div>$: {props.money.toFixed(2)}</div>
-            <div>DPS: {props.dps.toFixed(2)}</div>
+            <div>$: {nFormatter(props.money, 2)}</div>
+            <div>DPS: {nFormatter(props.dps, 2)}</div>
           </div>
         </div>
       </div>
@@ -40,9 +40,9 @@ export default function Clicker(props) {
               <tr>
                 <th scope="col">Name</th>
                 <th scope="col">Level</th>
-                <th scope="col">Cost</th>
-                <th scope="col">Cur</th>
-                <th scope="col">Next</th>
+                <th scope="col">Cost ($)</th>
+                <th scope="col">Cur (DPS)</th>
+                <th scope="col">Next (DPS)</th>
                 <th></th>
               </tr>
             </thead>
@@ -52,9 +52,14 @@ export default function Clicker(props) {
                   <tr key={listItem.id}>
                     <td>{listItem.name}</td>
                     <td>{listItem.level}</td>
-                    <td>{props.sumForUpgrade(listItem)} $</td>
-                    <td>{props.dpsCount(listItem)} DPS</td>
-                    <td>{props.dpsCount(listItem, listItem.level + 1)} DPS</td>
+                    <td>{nFormatter(props.sumForUpgrade(listItem), 2)}</td>
+                    <td>{nFormatter(props.dpsCount(listItem), 2)}</td>
+                    <td>
+                      {nFormatter(
+                        props.dpsCount(listItem, listItem.level + 1),
+                        2,
+                      )}{' '}
+                    </td>
                     <td>
                       <button
                         className={
@@ -102,7 +107,8 @@ export default function Clicker(props) {
               }}
             ></div>
             <div className="text">
-              {props.monsterCurHealth}/{props.monsterFullHealth} HP
+              {nFormatter(props.monsterCurHealth, 2)}/
+              {nFormatter(props.monsterFullHealth, 2)} HP
             </div>
           </div>
           <div className={monsterClass} onClick={props.onMonsterClick}>

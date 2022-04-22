@@ -7,7 +7,7 @@ import getrandomMonsterImage from '../../utils/getrandomMonsterImage'
 export default function ClickerContainer() {
   const [money, setMoney] = useState(0)
   const [wave, setWave] = useState(1)
-  const [monsterCurHealth, setMonsterCurHealth] = useState(null)
+  const [monsterCurHealth, setMonsterCurHealth] = useState(1)
   const [remainTime, setRemainTime] = useState(1)
   const [autoWave, setAutoWave] = useState(true)
   const [monsterName, setMonsterName] = useState('')
@@ -20,7 +20,7 @@ export default function ClickerContainer() {
 
   const waveOptions = {
     baseReward: 5,
-    reweardModififer: 1.1,
+    reweardModififer: 1.3,
     roundTime: 30,
   }
 
@@ -29,10 +29,10 @@ export default function ClickerContainer() {
       id: 1,
       name: 'Catgirl Helper',
       level: 0,
-      cost: 5,
-      levelUpCost: 2,
+      cost: 15,
+      levelUpCost: 1.15,
       dps: 10,
-      dpsOnUpgrade: 5,
+      dpsOnUpgrade: 1.15,
       canUpgrade: false,
       onTimer: true,
     },
@@ -41,9 +41,9 @@ export default function ClickerContainer() {
       name: 'Catgirl Apprentice',
       level: 0,
       cost: 100,
-      levelUpCost: 50,
-      dps: 50,
-      dpsOnUpgrade: 10,
+      levelUpCost: 1.2,
+      dps: 60,
+      dpsOnUpgrade: 1.1,
       canUpgrade: false,
       onTimer: true,
     },
@@ -52,9 +52,31 @@ export default function ClickerContainer() {
       name: 'Catgirl 3',
       level: 0,
       cost: 500,
-      levelUpCost: 150,
-      dps: 100,
-      dpsOnUpgrade: 20,
+      levelUpCost: 1.3,
+      dps: 150,
+      dpsOnUpgrade: 1.3,
+      canUpgrade: false,
+      onTimer: true,
+    },
+    {
+      id: 4,
+      name: 'Catgirl 4',
+      level: 0,
+      cost: 2500,
+      levelUpCost: 1.3,
+      dps: 350,
+      dpsOnUpgrade: 1.3,
+      canUpgrade: false,
+      onTimer: true,
+    },
+    {
+      id: 5,
+      name: 'Catgirl 5',
+      level: 0,
+      cost: 12500,
+      levelUpCost: 1.3,
+      dps: 600,
+      dpsOnUpgrade: 1.3,
       canUpgrade: false,
       onTimer: true,
     },
@@ -64,14 +86,14 @@ export default function ClickerContainer() {
 
   // calcs
   const sumForUpgrade = (listItem) => {
-    return listItem.cost + listItem.level * listItem.levelUpCost
+    return listItem.cost * Math.pow(listItem.levelUpCost, listItem.level)
   }
 
   const dpsCount = (listItem, toLevel = false) => {
     const level = !!toLevel ? toLevel : listItem.level
     if (level === 0) return 0
     if (level === 1) return listItem.dps
-    return listItem.dps + level * listItem.dpsOnUpgrade - listItem.dpsOnUpgrade
+    return listItem.dps * Math.pow(listItem.dpsOnUpgrade, level)
   }
 
   //check when clicks is changed
@@ -106,10 +128,10 @@ export default function ClickerContainer() {
 
   // ticks
   const calcMonsterFullHealth = (waveNum = false) => {
-    return wave * monster.baseHealth * monster.healthModififer
+    return monster.baseHealth * Math.pow(monster.healthModififer, wave)
   }
   const calcRewardForWave = () => {
-    return (waveOptions.baseReward * wave) / waveOptions.reweardModififer
+    return waveOptions.baseReward * Math.pow(waveOptions.reweardModififer, wave)
   }
   const onMonsterClick = () => {
     setMonsterCurHealth(monsterCurHealth - 10)

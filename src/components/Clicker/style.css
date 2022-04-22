@@ -42,7 +42,7 @@
   pointer-events: none;
 }
 .monster.hit img {
-  transform: skewX(-13deg);
+  transform: skewX(-20deg);
 }
 
 .monster .monster-name {
